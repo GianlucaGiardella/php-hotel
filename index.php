@@ -52,7 +52,11 @@ $hotels = [
 </head>
 
 <body>
-
+    <?php foreach ($hotels as $hotel) { ?>
+    <?php foreach ($hotel as $key => $info) { ?>
+    <strong><?= $key; ?>:</strong> <em><?= $info; ?></em><br>
+    <?php } ?> <br>
+    <?php } ?>
 </body>
 
 </html>
