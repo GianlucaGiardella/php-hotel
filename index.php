@@ -39,6 +39,24 @@ $hotels = [
     ],
 
 ];
+
+$parking = isset($_GET['parking']) ? $_GET['parking'] : "all";
+$vote = isset($_GET['vote']) ? intval($_GET['vote']) : 0;
+
+
+$filtered_hotels = array_filter($hotels, function ($item) use ($parking, $vote) {
+
+    if ($parking === "all" && $item['vote'] >= $vote) {
+        return true;
+    } else {
+        if ($item['parking'] == $parking && $item['vote'] >= $vote) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+});
+
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +73,18 @@ $hotels = [
 
 <body>
 
+    <form method="get">
+        <select name="parking">
+            <option value="all">Tutti</option>
+            <option value="true">Si</option>
+            <option value="">No</option>
+        </select>
+
+        <input type="number" min="0" max="5" name="vote" value="<?= $vote ?>">
+
+        <button class="btn btn-primary" type="submit">Cerca</button>
+    </form>
+
     <table class="table">
 
         <thead>
@@ -68,13 +98,23 @@ $hotels = [
         </thead>
 
         <tbody>
-            <?php foreach ($hotels as $hotel) { ?>
+            <?php
+            foreach ($filtered_hotels as $hotel) {
+            ?>
             <tr>
-                <?php foreach ($hotel as $info) { ?>
-                <td><?= $info; ?></td>
-                <?php } ?>
+                <?php foreach ($hotel as $key => $info) { ?>
+                <td>
+                    <?php if ($key === 'parking') {
+                                echo $info ? "Si" : "No";
+                            } else if ($key === 'distance_to_center') {
+                                echo "{$info} km";
+                            } else {
+                                echo $info;
+                            } ?>
+                </td>
                 <?php } ?>
             </tr>
+            <?php } ?>
         </tbody>
 
     </table>
