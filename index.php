@@ -41,10 +41,8 @@ $hotels = [
 ];
 
 $parking = isset($_GET['parking']) ? $_GET['parking'] : "all";
+
 $vote = isset($_GET['vote']) ? intval($_GET['vote']) : 0;
-
-var_dump($parking);
-
 
 $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote) {
 
@@ -69,9 +67,10 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
     <title>PHP Hotel</title>
 </head>
 
-<body>
+<body class="p-2">
 
-    <form method="get">
+    <form action="" method="get" class="mb-5">
+
         <select name="parking">
             <option value="all" <?= $parking === "all" ? "selected" : "" ?>>Tutti</option>
             <option value="1" <?= $parking === "1" ? "selected" : "" ?>>Si</option>
@@ -82,6 +81,7 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
 
         <button class="btn btn-primary" type="submit">Cerca</button>
         <button class="btn btn-secondary" type="reset">Annulla</button>
+
     </form>
 
     <table class="table">
@@ -97,9 +97,7 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
         </thead>
 
         <tbody>
-            <?php
-            foreach ($filtered_hotels as $hotel) {
-            ?>
+            <?php foreach ($filtered_hotels as $hotel) { ?>
             <tr>
                 <td><?= $hotel['name'] ?></td>
                 <td><?= $hotel['description'] ?></td>
