@@ -102,17 +102,11 @@ $filtered_hotels = array_filter($hotels, function ($item) use ($parking, $vote) 
             foreach ($filtered_hotels as $hotel) {
             ?>
             <tr>
-                <?php foreach ($hotel as $key => $info) { ?>
-                <td>
-                    <?php if ($key === 'parking') {
-                                echo $info ? "Si" : "No";
-                            } else if ($key === 'distance_to_center') {
-                                echo "{$info} km";
-                            } else {
-                                echo $info;
-                            } ?>
-                </td>
-                <?php } ?>
+                <td><?= $hotel['name'] ?></td>
+                <td><?= $hotel['description'] ?></td>
+                <td><?= $hotel['parking'] ? "Si" : "No" ?></td>
+                <td><?= $hotel['vote'] ?></td>
+                <td><?= $hotel['distance_to_center'] ?>km</td>
             </tr>
             <?php } ?>
         </tbody>
