@@ -44,16 +44,12 @@ $parking = isset($_GET['parking']) ? $_GET['parking'] : "all";
 $vote = isset($_GET['vote']) ? intval($_GET['vote']) : 0;
 
 
-$filtered_hotels = array_filter($hotels, function ($item) use ($parking, $vote) {
+$filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote) {
 
-    if ($parking === "all" && $item['vote'] >= $vote) {
+    if ($parking === "all" && $hotel['vote'] >= $vote) {
         return true;
     } else {
-        if ($item['parking'] == $parking && $item['vote'] >= $vote) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($hotel['parking'] == $parking && $hotel['vote'] >= $vote) ? true : false;
     }
 });
 
@@ -76,13 +72,14 @@ $filtered_hotels = array_filter($hotels, function ($item) use ($parking, $vote) 
     <form method="get">
         <select name="parking">
             <option value="all">Tutti</option>
-            <option value="true">Si</option>
+            <option value="1">Si</option>
             <option value="">No</option>
         </select>
 
         <input type="number" min="0" max="5" name="vote" value="<?= $vote ?>">
 
         <button class="btn btn-primary" type="submit">Cerca</button>
+        <button class="btn btn-secondary" type="reset">Annulla</button>
     </form>
 
     <table class="table">
