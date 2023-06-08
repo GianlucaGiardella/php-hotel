@@ -80,7 +80,7 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
         <input type="number" min="0" max="5" name="vote" value="<?= $vote ?>">
 
         <button class="btn btn-primary" type="submit">Cerca</button>
-        <button class="btn btn-secondary" type="reset">Annulla</button>
+        <a href="/php-hotel" class="btn btn-secondary">Annulla</a>
 
     </form>
 
