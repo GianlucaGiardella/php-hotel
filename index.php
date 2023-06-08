@@ -43,6 +43,8 @@ $hotels = [
 $parking = isset($_GET['parking']) ? $_GET['parking'] : "all";
 $vote = isset($_GET['vote']) ? intval($_GET['vote']) : 0;
 
+var_dump($parking);
+
 
 $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote) {
 
@@ -71,9 +73,9 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
 
     <form method="get">
         <select name="parking">
-            <option value="all">Tutti</option>
-            <option value="1">Si</option>
-            <option value="">No</option>
+            <option value="all" <?= $parking === "all" ? "selected" : "" ?>>Tutti</option>
+            <option value="1" <?= $parking === "1" ? "selected" : "" ?>>Si</option>
+            <option value="" <?= $parking === "" ? "selected" : "" ?>>No</option>
         </select>
 
         <input type="number" min="0" max="5" name="vote" value="<?= $vote ?>">
