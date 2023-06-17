@@ -53,6 +53,8 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
     }
 });
 
+$no_hotels = "<h2>Non sono stati trovati hotel</h2>";
+
 ?>
 
 <!DOCTYPE html>
@@ -80,10 +82,10 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
         <input type="number" min="0" max="5" name="vote" value="<?= $vote ?>">
 
         <button class="btn btn-primary" type="submit">Cerca</button>
-        <a href="/php-hotel" class="btn btn-secondary">Annulla</a>
+        <a href="/php-hotel" class="btn btn-secondary">Resetta</a>
 
     </form>
-
+    <?php if ($filtered_hotels) { ?>
     <table class="table">
 
         <thead>
@@ -107,8 +109,12 @@ $filtered_hotels = array_filter($hotels, function ($hotel) use ($parking, $vote)
             </tr>
             <?php } ?>
         </tbody>
-
     </table>
+
+    <?php } else {
+        echo $no_hotels;
+    } ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
